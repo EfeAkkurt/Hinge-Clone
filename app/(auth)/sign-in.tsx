@@ -31,7 +31,9 @@ const SignInScreen = () => {
         <View style={styles.branding} >
           <HingeLogo fill={colors.white} width={140} height={70} />
           <Spacer size={10} />
-          <Type variant="titleBold" color="white" textAlign="center">
+          <Type 
+          
+          variant="titleBold" color="white" textAlign="center">
             Designed to be deleted
           </Type>
         </View>

@@ -21,6 +21,7 @@ const PhoneInput = () => {
         <ChevronDownIcon width={15} height={15}
         />
       </View>
+      
       <TextInput
         style={styles.input}
         selectionColor={colors.black}
@@ -36,6 +37,7 @@ const PhoneInput = () => {
 export default PhoneInput
 
 const styles = StyleSheet.create({
+
   container: {
     flexDirection: 'row',
     gap: 32,

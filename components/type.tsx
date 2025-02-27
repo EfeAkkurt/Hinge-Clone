@@ -21,7 +21,6 @@ const Type = ({
     children
 }: TypeProps) => {
   return (
-    <View>
       <Text style={[
         typography[variant],
         {
@@ -33,7 +32,6 @@ const Type = ({
       ]}>
         {children}
         </Text>
-    </View>
   )
 }
 
