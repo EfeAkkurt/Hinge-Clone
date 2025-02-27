@@ -1,59 +1,51 @@
-import React from 'react';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link, Tabs } from 'expo-router';
-import { Pressable } from 'react-native';
+import { View, Text } from 'react-native'
+import React from 'react'
+import { Redirect, Tabs } from 'expo-router'
+import { colors } from '@/constants/Colors';
+import { HeartIcon, HingeIcon, StarIcon, MessageIcon, PersonIcon } from '@/constants/icons'; // Eksik importlar eklendi
 
-import Colors from '@/constants/Colors';
-import { useColorScheme } from '@/components/useColorScheme';
-import { useClientOnlyValue } from '@/components/useClientOnlyValue';
 
-// You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name'];
-  color: string;
-}) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
-}
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
+{/* bu kısım uygulamanın en altında bulunan geçiş kısımları için yapılşmıştır
+                      yani beğenenler kısmı mesajlar kısmı vs vs */}
+const TabLayout = () => {
+  return <Redirect href= "/(auth)/sign-in"/> // XR Auto'dan bir yönlendirme bileşeni döndür ve href'i kapalı olarak ayarla
+                    // yani kısacası ilk girişte kullanıcıyı oturum açma sayfasına sokuyor
   return (
     <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        // Disable the static render of the header on web
-        // to prevent a hydration error in React Navigation v6.
-        headerShown: useClientOnlyValue(false, true),
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name="info-circle"
-                    size={25}
-                    color={Colors[colorScheme ?? 'light'].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="two"
-        options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-        }}
-      />
+      screenOptions={({ route }) => ({
+        tabBarStyle: {
+          backgroundColor: colors.darkGrey1,
+        },
+        tabBarActiveTintColor: colors.white,
+        tabBarInactiveTintColor: colors.darkGrey2,
+        tabBarShowLabel: false,
+        tabBarIcon: ({color}) => {
+          switch (route.name) {
+            case 'index':
+              return <HingeIcon fill={color} />;
+            case 'standouts':
+              return <StarIcon fill={color} />;
+            case 'likes':
+              return <HeartIcon fill={color} />;
+            case 'matches':
+              return <MessageIcon fill={color} />;
+            case 'account':
+              return <PersonIcon fill={color} />;
+            default:
+              return null;
+          }
+        },
+      })}
+    >
+      <Tabs.Screen name="index" />
+      <Tabs.Screen name="standouts" />
+
+      <Tabs.Screen name="likes" />
+      <Tabs.Screen name="matches" />
+      <Tabs.Screen name="account" />
     </Tabs>
   );
-}
+};
+
+export default TabLayout
